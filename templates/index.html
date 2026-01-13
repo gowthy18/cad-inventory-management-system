@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CAD Inventory Management System</title>
+
+    <!-- CSS (you will write later) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- JS (you will write later) -->
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>CAD Inventory Management System</h1>
+        <h2>CIMS</h2>
+    </header>
+
+    <hr>
+
+    <!-- Upload Section -->
+    <section id="upload-section">
+        <form method="POST" enctype="multipart/form-data">
+            <label for="cad_file"><strong>Upload CAD Model (STL)</strong></label><br><br>
+            <input type="file" id="cad_file" name="cad_file" accept=".stl" required>
+            <br><br>
+            <button type="submit">Search Similar Models</button>
+        </form>
+    </section>
+
+    <hr>
+
+    <!-- Results Section -->
+    <section id="results-section">
+
+        <!-- Uploaded Model -->
+        <div class="uploaded-model">
+            <p><strong>Uploaded Model:</strong></p>
+            <p>{{ uploaded_model_name }}</p>
+        </div>
+
+        <!-- Best Match -->
+        <div class="best-match">
+            <h3>Best Match</h3>
+            <ul>
+                <li>
+                    <span>{{ best_match }}</span>
+                    <a href="{{ best_match_download }}" download>Download</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Related / Similar Models -->
+        <div class="related-models">
+            <h3>Related Models</h3>
+            <ul>
+                {% for model in similar_models %}
+                <li>
+                    <span>{{ model.name }}</span>
+                    <a href="{{ model.download }}" download>Download</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </section>
+
+</body>
+
+</html>
